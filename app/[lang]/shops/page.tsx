@@ -40,6 +40,7 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
   return (
     <div style={{ backgroundColor: '#f9f8f4', minHeight: '100vh', paddingBottom: '100px', fontFamily: 'serif' }}>
       
+      {/* 🌟 スマホ用のレスポンシブスタイルを追加 */}
       <style dangerouslySetInnerHTML={{ __html: `
         .shops-main { padding: 80px 20px; }
         .shops-title { font-size: 2.5rem; }
@@ -48,7 +49,7 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
         @media (max-width: 768px) {
           .shops-main { padding: 60px 15px; }
           .shops-title { font-size: 2rem; }
-          .shop-grid { grid-template-columns: 1fr !important; }
+          .shop-grid { grid-template-columns: 1fr !important; } /* カードを1列に */
           .thumb-container { max-width: 100% !important; height: auto !important; aspect-ratio: 4/3; }
         }
       `}} />
@@ -70,10 +71,12 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
               <ShopSection title={isEn ? "Food Trucks" : "キッチンカー"} items={kitchenCars} isEn={isEn} />
             </div>
 
-            {/* 🌟 復活！タイムテーブル＆マップセクション */}
+            {/* タイムテーブル＆マップセクション */}
             {(timetableImages.length > 0 || mapImages.length > 0) && (
               <div style={{ marginTop: '100px', padding: '0 10px' }}>
                 <div className="event-grid">
+                  
+                  {/* タイムテーブル */}
                   {timetableImages.length > 0 && (
                     <div>
                       <h2 style={{ fontSize: '1.3rem', color: '#2d5a27', fontWeight: 'bold', marginBottom: '20px', borderLeft: '5px solid #bd5532', paddingLeft: '12px' }}>
@@ -90,6 +93,7 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
                     </div>
                   )}
 
+                  {/* 会場マップ */}
                   {mapImages.length > 0 && (
                     <div>
                       <h2 style={{ fontSize: '1.3rem', color: '#2d5a27', fontWeight: 'bold', marginBottom: '20px', borderLeft: '5px solid #bd5532', paddingLeft: '12px' }}>
@@ -105,6 +109,7 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
                       </div>
                     </div>
                   )}
+
                 </div>
               </div>
             )}
@@ -128,12 +133,19 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
   );
 }
 
-// スタイル定数
 const thumbContainerStyle: React.CSSProperties = {
-  position: 'relative', width: '100%', maxWidth: '320px', height: '240px',
-  borderRadius: '15px', overflow: 'hidden', cursor: 'zoom-in',
-  boxShadow: '0 8px 20px rgba(0,0,0,0.08)', backgroundColor: '#fff', border: '1px solid #eee'
+  position: 'relative',
+  width: '100%',
+  maxWidth: '320px',
+  height: '240px',
+  borderRadius: '15px',
+  overflow: 'hidden',
+  cursor: 'zoom-in',
+  boxShadow: '0 8px 20px rgba(0,0,0,0.08)',
+  backgroundColor: '#fff',
+  border: '1px solid #eee'
 };
+
 const thumbImgStyle: React.CSSProperties = { width: '100%', height: '100%', objectFit: 'cover' };
 const zoomOverlayStyle: React.CSSProperties = { position: 'absolute', bottom: 0, left: 0, width: '100%', backgroundColor: 'rgba(45, 90, 39, 0.7)', color: '#fff', fontSize: '0.75rem', textAlign: 'center', padding: '5px 0' };
 
@@ -161,7 +173,6 @@ function ShopCard({ shop, isEn }: { shop: any, isEn: boolean }) {
   const targetLink = shop.link || "";
   const typeValue = Array.isArray(shop.type) ? shop.type[0] : shop.type;
 
-  // 🎨 背景色とラベルの設定（これも復活！）
   let cardBgColor = '#fff';
   let labelText = '';
   let labelBgColor = '#666';
@@ -176,7 +187,7 @@ function ShopCard({ shop, isEn }: { shop: any, isEn: boolean }) {
       href={targetLink || undefined} target={targetLink ? "_blank" : undefined} rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
       style={{
-        display: 'block', position: 'relative', textDecoration: 'none', color: 'inherit', backgroundColor: cardBgColor,
+        display: 'block', position: 'relative', textDecoration: 'none', color: 'inherit', backgroundColor: '#fff',
         borderRadius: '25px', overflow: 'hidden', transition: 'all 0.4s ease',
         transform: isHovered ? 'translateY(-10px)' : 'translateY(0)',
         boxShadow: isHovered ? '0 20px 40px rgba(0,0,0,0.1)' : '0 10px 30px rgba(0,0,0,0.03)',
