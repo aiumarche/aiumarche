@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function RecruitPage() {
   return (
-    <div style={{ backgroundColor: '#f9f8f4', minHeight: '100vh', paddingBottom: '100px', fontFamily: '"Shippori Mincho B1", serif' }}>
+    <div style={{ backgroundColor: '#f9f8f4', minHeight: '100vh', paddingBottom: '100px', fontFamily: 'serif' }}>
 
       <main style={{ maxWidth: '900px', margin: '0 auto', padding: '80px 20px' }}>
         <div style={{ textAlign: 'center', marginBottom: '80px' }}>

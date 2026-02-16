@@ -11,7 +11,7 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
   const [isMapHovered, setIsMapHovered] = useState(false);
 
   return (
-    <div style={{ backgroundColor: '#f9f8f4', minHeight: '100vh', paddingBottom: '100px', fontFamily: '"Shippori Mincho B1", serif' }}>
+    <div style={{ backgroundColor: '#f9f8f4', minHeight: '100vh', paddingBottom: '100px', fontFamily: 'serif' }}>
       
       {/* 🌟 ボタンのホバー演出（デザイン変更なし） */}
       <style dangerouslySetInnerHTML={{ __html: `
@@ -39,7 +39,7 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
       <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '80px 20px' }}>
         
         <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-          <h1 style={{ fontSize: '2.5rem', color: '#2d5a27', fontWeight: 'bold', letterSpacing: '0.2em', marginBottom: '15px', fontFamily: '"Shippori Mincho B1", serif' }}>ACCESS</h1>
+          <h1 style={{ fontSize: '2.5rem', color: '#2d5a27', fontWeight: 'bold', letterSpacing: '0.2em', marginBottom: '15px', fontFamily: 'serif' }}>ACCESS</h1>
           <div style={{ width: '60px', height: '3px', backgroundColor: '#bd5532', margin: '0 auto' }}></div>
         </div>
 

@@ -65,7 +65,7 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
     <div style={{ 
       backgroundColor: '#fff', 
       minHeight: '100vh', 
-      fontFamily: '"Shippori Mincho", "Sawarabi Mincho", serif' 
+      fontFamily: 'serif' 
     }}>
       <style dangerouslySetInnerHTML={{ __html: `
         .rich-content h3 { color: #2d5a27 !important; font-size: 1.4rem !important; margin: 40px 0 20px !important; font-weight: bold !important; display: flex !important; align-items: center !important; }

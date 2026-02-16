@@ -26,7 +26,7 @@ export default function RootLayout({
       </head>
       <body style={{ 
         margin: 0, display: 'flex', flexDirection: 'column', minHeight: '100vh',
-        backgroundColor: '#f9f8f4', fontFamily: '"Shippori Mincho B1", serif'
+        backgroundColor: '#f9f8f4', fontFamily: 'serif'
       }}>
         {/* 固定ヘッダー */}
         <header style={{ 
@@ -83,7 +83,7 @@ export default function RootLayout({
                 fontSize: '1.6rem', 
                 letterSpacing: '0.1em', 
                 fontWeight: 'normal',
-                fontFamily: '"Shippori Mincho B1", serif' 
+                fontFamily: 'serif' 
               }}>AIU Marché</h2>
             </div>
             

@@ -115,7 +115,7 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
                 cursor: 'pointer',
                 boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
                 transition: 'all 0.3s ease',
-                fontFamily: '"Shippori Mincho B1", serif'
+                fontFamily: 'serif'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'scale(1.1)';
@@ -135,7 +135,7 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
       <main style={{ padding: '80px 10%', background: '#fff' }}>
 
        {/* 🔴 NEWS セクション */}
-<h2 style={{ textAlign: 'center', color: '#2d5a27', marginBottom: '40px', fontFamily: '"Shippori Mincho B1", serif', letterSpacing: '0.1em' }}>
+<h2 style={{ textAlign: 'center', color: '#2d5a27', marginBottom: '40px', fontFamily: 'serif', letterSpacing: '0.1em' }}>
   NEWS
 </h2>
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '25px', marginBottom: '100px' }}>
@@ -182,7 +182,7 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
             color: '#2d5a27', 
             lineHeight: '1.5',
             margin: 0,
-            fontFamily: '"Shippori Mincho B1", serif' 
+            fontFamily: 'serif' 
           }}>
             {displayTitle}
           </h3>
@@ -194,7 +194,7 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
 
         {/* 🔴 EVENT INFO セクション */}
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', color: '#2d5a27', marginBottom: '40px', fontFamily: '"Shippori Mincho B1", serif', letterSpacing: '0.1em' }}>EVENT INFO</h2>
+          <h2 style={{ textAlign: 'center', color: '#2d5a27', marginBottom: '40px', fontFamily: 'serif', letterSpacing: '0.1em' }}>EVENT INFO</h2>
           
           {events.length > 0 && (
             <div style={{ 
@@ -203,7 +203,7 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
               borderRadius: '20px', 
               boxShadow: '0 10px 40px rgba(0,0,0,0.05)',
               border: '1px solid #f5f5f5',
-              fontFamily: '"Shippori Mincho B1", serif'
+              fontFamily: 'serif'
             }}>
               <div style={{ textAlign: 'center', marginBottom: '40px' }}>
   <p style={{ fontSize: '0.85rem', color: '#bd5532', fontWeight: 'bold', marginBottom: '10px', letterSpacing: '0.1em' }}>DATE & PLACE</p>

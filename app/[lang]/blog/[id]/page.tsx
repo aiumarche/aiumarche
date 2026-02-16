@@ -59,7 +59,7 @@ export default function BlogDetail() {
           fontSize: '2rem', 
           borderBottom: '2px solid #ebad4e', 
           paddingBottom: '10px',
-          fontFamily: '"Shippori Mincho B1", serif'
+          fontFamily: 'serif'
         }}>
           {displayTitle}
         </h1>
