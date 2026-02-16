@@ -13,7 +13,7 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
   return (
     <div style={{ backgroundColor: '#f9f8f4', minHeight: '100vh', paddingBottom: '100px', fontFamily: 'serif' }}>
       
-      {/* 🌟 ボタンのホバー演出（デザイン変更なし） */}
+      {/* 🌟 スマホ対応用のスタイルを追加（デザイン変更なし） */}
       <style dangerouslySetInnerHTML={{ __html: `
         .bus-btn {
           display: inline-block; 
@@ -34,18 +34,38 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
           transform: translateY(-12px);
           box-shadow: 0 15px 30px rgba(45, 90, 39, 0.2);
         }
+
+        /* 📱 スマホ対応：横並びを縦並びに切り替える */
+        @media (max-width: 768px) {
+          .access-container {
+            flex-direction: column !important;
+            gap: 40px !important;
+          }
+          .access-info-section {
+            min-width: 100% !important;
+          }
+          .access-map-section {
+            min-width: 100% !important;
+            height: 350px !important; /* スマホではマップの高さを少し抑える */
+          }
+          .access-title {
+            font-size: 2rem !important;
+            margin-bottom: 40px !important;
+          }
+        }
       `}} />
 
       <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '80px 20px' }}>
         
         <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-          <h1 style={{ fontSize: '2.5rem', color: '#2d5a27', fontWeight: 'bold', letterSpacing: '0.2em', marginBottom: '15px', fontFamily: 'serif' }}>ACCESS</h1>
+          <h1 className="access-title" style={{ fontSize: '2.5rem', color: '#2d5a27', fontWeight: 'bold', letterSpacing: '0.2em', marginBottom: '15px', fontFamily: 'serif' }}>ACCESS</h1>
           <div style={{ width: '60px', height: '3px', backgroundColor: '#bd5532', margin: '0 auto' }}></div>
         </div>
 
-        <div style={{ display: 'flex', gap: '60px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        {/* 🌟 className="access-container" を追加してメディアクエリで制御 */}
+        <div className="access-container" style={{ display: 'flex', gap: '60px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
           
-          <div style={{ flex: '1', minWidth: '350px' }}>
+          <div className="access-info-section" style={{ flex: '1', minWidth: '350px' }}>
             {/* 会場 (Venue) */}
             <section style={{ marginBottom: '50px' }}>
               <h2 style={{ fontSize: '1.4rem', color: '#2d5a27', fontWeight: 'bold', borderBottom: '2px solid #bd5532', display: 'inline-block', marginBottom: '25px', paddingBottom: '5px' }}>
@@ -124,6 +144,7 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
 
           {/* 右側：Googleマップ（デザイン・アニメーション維持） */}
           <div 
+            className="access-map-section"
             style={{ 
               flex: '1', minWidth: '400px', height: '500px', position: 'relative',
               borderRadius: '25px', overflow: 'hidden', backgroundColor: '#eee',
@@ -135,7 +156,7 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
             onMouseLeave={() => setIsMapHovered(false)}
           >
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3072.934888124231!2d140.1955655766289!3d39.62669957157644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8fa0bcc7a7ee17%3A0xff1cc20a9a8f7aa9!2z5Zu96Zqb5pWZ6aSK5aSn5a2m!5e0!3m2!1sja!2sjp!4v1710000000000!5m2!1sja!2sjp" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.1963212351234!2d140.13426747656372!3d39.60029967158434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8fc3292403666f%3A0xc392817343d8393e!2z5Zu96Zqb5pWZ6aSK5aSn5a2m!5e0!3m2!1sja!2sjp!4v1715000000000!5m2!1sja!2sjp" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 

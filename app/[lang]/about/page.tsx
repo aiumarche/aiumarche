@@ -76,19 +76,28 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
         .rich-content td:first-child { width: 35% !important; font-weight: bold !important; color: #2d5a27 !important; }
         .rich-content p { line-height: 2.1 !important; margin-bottom: 1.5em !important; }
         
-        /* 🌟 追加したスタイル：マウスを乗せた時に浮き上がらせる */
         .timeline-card:hover {
           transform: translateY(-10px);
           box-shadow: 0 30px 60px rgba(0,0,0,0.12) !important;
         }
+
+        /* 📱 スマホ対応用レスポンシブスタイル */
+        @media (max-width: 768px) {
+          .timeline-line { left: 20px !important; transform: none !important; }
+          .timeline-row { justify-content: flex-start !important; padding-left: 50px !important; }
+          .timeline-dot { left: 20px !important; transform: translateX(-50%) !important; }
+          .timeline-card { width: 95% !important; padding: 20px !important; }
+          .section-container { padding: 30px 20px !important; }
+          .main-title { fontSize: 1.8rem !important; marginBottom: 40px !important; }
+        }
       `}} />
 
       <main style={{ maxWidth: '900px', margin: '0 auto', padding: '60px 20px' }}>
-        <h1 style={{ textAlign: 'center', color: '#2d5a27', fontSize: '2.5rem', marginBottom: '80px', fontWeight: 'bold', letterSpacing: '0.2em' }}>ABOUT</h1>
+        <h1 className="main-title" style={{ textAlign: 'center', color: '#2d5a27', fontSize: '2.5rem', marginBottom: '80px', fontWeight: 'bold', letterSpacing: '0.2em' }}>ABOUT</h1>
         
        {/* 1. AIUマルシェとは？ */}
 {aboutContents.length > 0 && (
-  <section style={{ marginBottom: '100px', padding: '0 20px' }}>
+  <section style={{ marginBottom: '100px', padding: '0 10px' }}>
     <div className="rich-content" dangerouslySetInnerHTML={{ 
       __html: isEn 
         ? (aboutContents[0].about_english?.content_en || aboutContents[0].about_en_fields?.content_en || aboutContents[0].about) 
@@ -99,7 +108,7 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
 
         {/* 2. 代表挨拶 */}
 {aboutContents.length > 1 && (
-  <section style={{ 
+  <section className="section-container" style={{ 
     background: '#fff', padding: '50px 60px', borderRadius: '40px', 
     boxShadow: '0 20px 60px rgba(0,0,0,0.05)', border: '1px solid #f5f5f5', marginBottom: '80px'
   }}>
@@ -113,7 +122,7 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
 
         {/* 3. 団体概要・実績 */}
 {aboutContents.length > 2 && (
-  <section style={{ 
+  <section className="section-container" style={{ 
     background: '#fff', padding: '50px 60px', borderRadius: '40px', 
     boxShadow: '0 20px 60px rgba(0,0,0,0.05)', border: '1px solid #f5f5f5', marginBottom: '120px'
   }}>
@@ -129,12 +138,14 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
         <h2 style={{ textAlign: 'center', color: '#2d5a27', fontSize: '1.8rem', margin: '100px 0 10px', fontWeight: 'bold' }}>
           {isEn ? "History of AIU Marche" : "AIUマルシェの歩み"}
         </h2>
-        <p style={{ textAlign: 'center', color: '#666', fontSize: '0.9rem', marginBottom: '50px' }}>
+        <p style={{ textAlign: 'center', color: '#666', fontSize: '0.9rem', marginBottom: '50px', padding: '0 10px' }}>
           {isEn ? "Click the cards to see our activities on Instagram." : "各イベントのカードをクリックすると、Instagramで詳しくご覧いただけます。"}
         </p>
         
         <div style={{ position: 'relative', minHeight: '300px' }}>
-          <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '4px', backgroundColor: '#bd5532', transform: 'translateX(-50%)' }}></div>
+          {/* 中央の線（スマホ時は左に寄る） */}
+          <div className="timeline-line" style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '4px', backgroundColor: '#bd5532', transform: 'translateX(-50%)' }}></div>
+          
           {timelineData.map((d: any, index: number) => {
             const isLeft = index % 2 === 0;
             const showYear = index === 0 || d.year !== timelineData[index - 1].year;
@@ -145,11 +156,13 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
                     <span style={{ backgroundColor: '#bd5532', color: '#fff', padding: '8px 28px', borderRadius: '50px', fontWeight: 'bold' }}>{d.year}</span>
                   </div>
                 )}
-                <div style={{ display: 'flex', justifyContent: isLeft ? 'flex-start' : 'flex-end', width: '100%', marginBottom: '80px', position: 'relative' }}>
-                  <div style={{ position: 'absolute', left: '50%', top: '30px', width: '22px', height: '22px', backgroundColor: '#fff', border: '4px solid #bd5532', borderRadius: '50%', transform: 'translateX(-50%)', zIndex: 2 }}></div>
+                <div className="timeline-row" style={{ display: 'flex', justifyContent: isLeft ? 'flex-start' : 'flex-end', width: '100%', marginBottom: '80px', position: 'relative' }}>
+                  {/* 点（スマホ時は線に合わせて左に寄る） */}
+                  <div className="timeline-dot" style={{ position: 'absolute', left: '50%', top: '30px', width: '22px', height: '22px', backgroundColor: '#fff', border: '4px solid #bd5532', borderRadius: '50%', transform: 'translateX(-50%)', zIndex: 2 }}></div>
+                  
                   <div 
                     onClick={() => d.link && window.open(d.link, '_blank')}
-                    className="timeline-card" // クラス名を追加
+                    className="timeline-card"
                     style={{ 
                       width: '40%', 
                       background: '#fff', 
@@ -159,7 +172,7 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
                       border: '1px solid #eee', 
                       zIndex: 2,
                       cursor: d.link ? 'pointer' : 'default',
-                      transition: 'all 0.3s ease', // 変化をなめらかにする
+                      transition: 'all 0.3s ease',
                     }}
                   >
                     <div style={{ marginBottom: '15px' }}>
