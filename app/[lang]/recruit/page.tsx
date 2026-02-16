@@ -13,7 +13,7 @@ export default function RecruitPage() {
     client.get({
       endpoint: 'news',
       queries: { 
-        filters: 'category[equals]recruit', // カテゴリがrecruitのものだけ取得
+        filters: 'category[contains]recruit', // カテゴリがrecruitのものだけ取得
       },
     }).then((res) => {
       setRecruits(res.contents);
