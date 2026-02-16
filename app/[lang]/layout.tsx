@@ -98,9 +98,9 @@ export default function RootLayout({
         </div>
 
         {/* メインコンテンツ */}
-        <main style={{ flex: 1, paddingTop: '90px' }}>
-          {children}
-        </main>
+        <main style={{ flex: 1, paddingTop: '0px' }}> {/* 100px や 90px だったのを 0 に変更 */}
+  {children}
+</main>
 
         {/* 共通フッター */}
         <footer style={{ backgroundColor: '#2d4e3d', color: '#fff', padding: '60px 20px 40px', textAlign: 'center' }}>
