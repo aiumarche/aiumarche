@@ -173,19 +173,37 @@ function ShopCard({ shop, isEn }: { shop: any, isEn: boolean }) {
   const targetLink = shop.link || "";
   const typeValue = Array.isArray(shop.type) ? shop.type[0] : shop.type;
 
+  // 🌟 ここから：背景色とラベルの設定（復活版）
+  let cardBgColor = '#fff'; // デフォルトは白
   let labelText = '';
   let labelBgColor = '#666';
-  if (typeValue === 'Food') { labelText = 'Food'; labelBgColor = '#bd5532'; } 
-  else if (typeValue === 'Art') { labelText = 'Art'; labelBgColor = '#3273bd'; } 
-  else if (typeValue === 'Workshop') { labelText = 'Workshop'; labelBgColor = '#2d5a27'; }
-  else if (typeValue === 'Performer') { labelText = 'Performer'; labelBgColor = '#bd5532'; }
+
+  if (typeValue === 'Food') { 
+    cardBgColor = '#fff9f0'; // 薄いオレンジ
+    labelText = 'Food'; 
+    labelBgColor = '#bd5532'; 
+  } else if (typeValue === 'Art') { 
+    cardBgColor = '#f0f7ff'; // 薄い青
+    labelText = 'Art'; 
+    labelBgColor = '#3273bd'; 
+  } else if (typeValue === 'Workshop') { 
+    cardBgColor = '#f0fff4'; // 薄い緑
+    labelText = 'Workshop'; 
+    labelBgColor = '#2d5a27'; 
+  } else if (typeValue === 'Performer') { 
+    cardBgColor = '#f9f0ff'; // 薄い紫
+    labelText = 'Performer'; 
+    labelBgColor = '#8e44ad'; 
+  }
+  // 🌟 ここまで
 
   return (
     <a 
       href={targetLink || undefined} target={targetLink ? "_blank" : undefined} rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
       style={{
-        display: 'block', position: 'relative', textDecoration: 'none', color: 'inherit', backgroundColor: '#fff',
+        display: 'block', position: 'relative', textDecoration: 'none', color: 'inherit', 
+        backgroundColor: cardBgColor, // 🌟 ここで変数を適用！
         borderRadius: '25px', overflow: 'hidden', transition: 'all 0.4s ease',
         transform: isHovered ? 'translateY(-10px)' : 'translateY(0)',
         boxShadow: isHovered ? '0 20px 40px rgba(0,0,0,0.1)' : '0 10px 30px rgba(0,0,0,0.03)',
