@@ -45,7 +45,6 @@ export default function RootLayout({
   <Link href={`/${lang}/about`} style={navLinkStyle}>ABOUT</Link>
   <Link href={`/${lang}/shops`} style={navLinkStyle}>SHOPS</Link>
   <Link href={`/${lang}/access`} style={navLinkStyle}>ACCESS</Link>
-  {/* 新しく RECRUIT を追加 */}
   <Link href={`/${lang}/recruit`} style={navLinkStyle}>RECRUIT</Link>
 </nav>
 
@@ -90,7 +89,7 @@ export default function RootLayout({
             </div>
             
             <div style={{ fontSize: '0.95rem', lineHeight: '2.2', marginBottom: '50px', color: '#f0f0f0' }}>
-              <p style={{ margin: 0 }}>Email: aiumarche@gl.aiu.ac.jp</p>
+              <p style={{ margin: 0 }}>Email: <a href="mailto:aiumarche@gl.aiu.ac.jp" style={{ color: 'inherit', textDecoration: 'underline' }}>aiumarche@gl.aiu.ac.jp</a></p>
               <p style={{ margin: 0 }}>
                 Instagram: <a href="https://www.instagram.com/aiumarche" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'underline' }}>@aiumarche</a>
               </p>
@@ -99,9 +98,7 @@ export default function RootLayout({
             <nav style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginBottom: '60px' }}>
               <Link href={`/${lang}`} style={footerLinkStyle}>HOME</Link>
               <Link href={`/${lang}/about`} style={footerLinkStyle}>ABOUT</Link>
-              <a href="mailto:aiumarche@gl.aiu.ac.jp" style={{ color: 'inherit', textDecoration: 'none' }}>
-  CONTACT
-</a>
+              <a href="mailto:aiumarche@gl.aiu.ac.jp" style={footerLinkStyle}> CONTACT</a>
             </nav>
 
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '40px', fontSize: '0.75rem', color: '#9fb3a8' }}>
