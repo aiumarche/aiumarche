@@ -32,7 +32,7 @@ export default function RootLayout({
         <header style={{ 
           position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000, 
           boxSizing: 'border-box', backgroundColor: 'rgba(255, 255, 255, 0.9)', 
-          backdropFilter: 'blur(10px)', padding: '15px 5%', display: 'flex', 
+          backdropFilter: 'blur(10px)', padding: '25px 5% 45px 5%', display: 'flex', 
           justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eee' 
         }}>
           <Link href={`/${lang}`} style={{ color: '#2d5a27', fontSize: '1.4rem', fontWeight: 'bold', textDecoration: 'none' }}>
