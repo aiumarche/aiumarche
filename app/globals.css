@@ -1,0 +1,241 @@
+:root {
+  --aiu-green: #2d5a27;
+  --marche-gold: #eeb04b;
+  --bg-cream: #fdfaf5; /* より明るいクリーム色に */
+  --card-bg: #ffffff;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-cream);
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  color: #333;
+}
+
+
+/* ヘッダー全体の設定 */
+header {
+  display: flex !important;
+  justify-content: space-between !important; /* これでロゴとメニューを離すにゃ */
+  align-items: center !important;
+  padding: 20px 50px !important;
+  background: #fff !important;
+}
+
+/* メニュー（ul）の設定 */
+header ul {
+  display: flex !important;
+  list-style: none !important;
+  gap: 25px !important; /* メニューの間隔 */
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* メニューの文字（li）の設定 */
+header li {
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  cursor: pointer !important;
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  color: var(--aiu-green);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+nav a {
+  text-decoration: none;
+  text-align: center;
+}
+
+.en { font-weight: bold; color: #333; font-size: 13px; display: block; }
+.jp { color: #aaa; font-size: 10px; display: block; }
+
+/* ヒーローエリア（画像全体を表示しつつ明るく） */
+.hero {
+  height: 60vh;
+  background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)), url('/logo.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 5px solid var(--aiu-green);
+}
+
+.hero h1 { font-size: 3rem; color: #333; margin: 0; }
+
+/* 記事一覧を「写真が並ぶカード形式」にする */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.section-title {
+  text-align: center;
+  color: var(--aiu-green);
+  font-size: 2rem;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--marche-gold);
+  margin: 10px auto;
+}
+
+/* グリッドレイアウト（写真が横に並ぶ設定） */
+.post-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.post-item {
+  background: var(--card-bg);
+  border-radius: 15px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #333;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s;
+}
+
+.post-item:hover {
+  transform: translateY(-10px);
+}
+
+/* 写真を入れるスペース */
+.post-image {
+  width: 100%;
+  height: 200px;
+  background-color: #eee;
+  background-size: cover;
+  background-position: center;
+}
+
+.post-content {
+  padding: 20px;
+}
+
+.post-content h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  color: var(--aiu-green);
+}
+
+.post-date {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+
+/* デザインの土台を整える */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fdfdfb;
+  color: #333;
+  /* 🔴 フォントを上品な明朝体系に固定 */
+  font-family: "Hiragino Mincho ProN", "MS Mincho", sans-serif;
+  overflow-x: hidden;
+}
+
+/* スライダーが画面いっぱいに広がるようにする設定 */
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+/* 🔴 ボタンに動きをつけるための設定（CSSで書くのが一番安全！） */
+.marche-button {
+  transition: all 0.3s ease; /* 0.3秒かけて変化させる */
+}
+
+.marche-button:hover {
+  transform: translateY(-4px); /* 4ピクセル上に浮き上がる */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important; /* 影を強くする */
+  opacity: 0.9;
+}
+
+/* 全体の設定 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 🔴 ボタンに動きをつけるための設定 */
+.marche-button {
+  transition: all 0.3s ease; /* 0.3秒かけて変化させる */
+}
+
+.marche-button:hover {
+  transform: translateY(-4px); /* 4ピクセル上に浮き上がる */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important; /* 影を強くする */
+  opacity: 0.9;
+}
+
+/*クリーンな土台作り */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fdfdfb;
+  color: #333;
+  font-family: "Hiragino Mincho ProN", "MS Mincho", serif;
+  overflow-x: hidden;
+}
+
+/* スライダーが画面を覆うための基本設定 */
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+/* NEWSカード全体の基本アニメーション設定 */
+.news-card {
+  will-change: transform;
+}
+
+/* リンク全体の見た目をスッキリさせる */
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 既存のテンプレートのイラストを強制的に非表示にする */
+.hero, 
+[class*="hero"], 
+section[class] {
+  background-image: none !important;
+  background: none !important;
+}
+
+/* ページ全体の余計な背景を消す */
+body {
+  background-image: none !important;
+}

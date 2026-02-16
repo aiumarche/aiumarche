@@ -1,0 +1,88 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { createClient } from "microcms-js-sdk";
+import Link from "next/link";
+
+const client = createClient({
+  serviceDomain: "aiumarche",
+  apiKey: "F8ms5r1H7MEOHCcR3DiwONlbqOmvlnLMQig4", 
+});
+
+export default function BlogDetail() {
+  const params = useParams();
+  const [post, setPost] = useState<any>(null);
+
+  // 🌟 URLのパラメータから現在の言語を判定 (jp または en)
+  const currentLang = params.lang as string;
+  const isEn = currentLang === 'en';
+
+  useEffect(() => {
+    if (!params.id) return;
+    
+    // URLからIDを読み取って、その記事だけを取得する
+    client.get({
+      endpoint: "news",
+      contentId: params.id as string,
+    }).then((res) => setPost(res));
+  }, [params.id]);
+
+  if (!post) return <div style={{ padding: "50px", textAlign: "center" }}>Loading...</div>;
+
+  // 🌟 言語切り替えロジック
+  // 英語モードかつ英語データがあればそれを使い、なければ日本語を表示
+  const displayTitle = isEn && post.title_en ? post.title_en : post.title;
+  const displayContent = isEn && post.content_en ? post.content_en : post.content;
+
+  // 🌟 日付のフォーマット切替
+  const displayDate = new Date(post.publishedAt || post.createdAt).toLocaleDateString(
+    isEn ? 'en-US' : 'ja-JP',
+    { year: 'numeric', month: isEn ? 'short' : '2-digit', day: '2-digit' }
+  );
+
+  return (
+    /* 背景を完全に覆うスタイルを維持 */
+    <div style={{ 
+      position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', 
+      backgroundColor: '#fff', zIndex: 9999, overflowY: 'auto', padding: '40px 10%' 
+    }}>
+      
+      {/* 🌟 戻るボタンのテキストも言語に応じて切り替え */}
+      <Link href={`/${currentLang}`} style={{ color: '#2d5a27', textDecoration: 'none', fontWeight: 'bold' }}>
+        ← {isEn ? 'Back to Top' : 'トップページに戻る'}
+      </Link>
+
+      <article style={{ marginTop: '40px', maxWidth: '800px' }}>
+        <h1 style={{ 
+          color: '#2d5a27', 
+          fontSize: '2rem', 
+          borderBottom: '2px solid #ebad4e', 
+          paddingBottom: '10px',
+          fontFamily: '"Shippori Mincho B1", serif'
+        }}>
+          {displayTitle}
+        </h1>
+        
+        <p style={{ color: '#bd5532', marginTop: '15px', fontWeight: 'bold' }}>
+          {displayDate}
+        </p>
+
+        {/* 🌟 記事本文（リッチエディタの内容） */}
+        <div 
+          style={{ 
+            marginTop: '40px', 
+            lineHeight: '1.9', 
+            fontSize: '1.1rem', 
+            color: '#333' 
+          }}
+          dangerouslySetInnerHTML={{ __html: displayContent }} 
+        />
+      </article>
+
+      <footer style={{ marginTop: '100px', paddingBottom: '50px', textAlign: 'center', color: '#ccc', fontSize: '0.8rem' }}>
+        © AIU Marche
+      </footer>
+    </div>
+  );
+}
