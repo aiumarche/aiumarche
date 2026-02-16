@@ -35,7 +35,7 @@ export default function RootLayout({
           backdropFilter: 'blur(10px)', padding: '25px 5% 45px 5%', display: 'flex', 
           justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eee' 
         }}>
-          <Link href={`/${lang}`} style={{ color: '#2d5a27', fontSize: '2.0rem', fontWeight: 'bold', textDecoration: 'none' }}>
+          <Link href={`/${lang}`} style={{ color: '#2d5a27', fontSize: '1.8rem', fontWeight: 'bold', textDecoration: 'none' }}>
             AIU Marché
           </Link>
 
