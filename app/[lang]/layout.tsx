@@ -35,17 +35,19 @@ export default function RootLayout({
           backdropFilter: 'blur(10px)', padding: '25px 5% 45px 5%', display: 'flex', 
           justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eee' 
         }}>
-          <Link href={`/${lang}`} style={{ color: '#2d5a27', fontSize: '2.5rem', fontWeight: 'bold', textDecoration: 'none' }}>
+          <Link href={`/${lang}`} style={{ color: '#2d5a27', fontSize: '2.0rem', fontWeight: 'bold', textDecoration: 'none' }}>
             AIU Marché
           </Link>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
-            <nav style={{ display: 'flex', gap: '20px' }}>
-              <Link href={`/${lang}`} style={navLinkStyle}>HOME</Link>
-              <Link href={`/${lang}/about`} style={navLinkStyle}>ABOUT</Link>
-              <Link href={`/${lang}/shops`} style={navLinkStyle}>SHOPS</Link>
-              <Link href={`/${lang}/access`} style={navLinkStyle}>ACCESS</Link>
-            </nav>
+            <nav style={{ display: 'flex', gap: '25px' }}> {/* 間隔を少し広げました */}
+  <Link href={`/${lang}`} style={navLinkStyle}>HOME</Link>
+  <Link href={`/${lang}/about`} style={navLinkStyle}>ABOUT</Link>
+  <Link href={`/${lang}/shops`} style={navLinkStyle}>SHOPS</Link>
+  <Link href={`/${lang}/access`} style={navLinkStyle}>ACCESS</Link>
+  {/* 新しく RECRUIT を追加 */}
+  <Link href={`/${lang}/recruit`} style={navLinkStyle}>RECRUIT</Link>
+</nav>
 
             <div style={{ display: 'flex', border: '1px solid #2d5a27', borderRadius: '20px', overflow: 'hidden' }}>
               <Link href="/jp" style={langBtnLinkStyle(lang === 'jp')}>JP</Link>
@@ -113,7 +115,7 @@ export default function RootLayout({
 }
 
 // スタイル定義
-const navLinkStyle = { color: '#2d5a27', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 'bold' };
+const navLinkStyle = { color: '#2d5a27', textDecoration: 'none', fontSize: '1.2rem', fontWeight: 'bold' };
 const footerLinkStyle = { color: '#fff', textDecoration: 'none', fontSize: '0.85rem', letterSpacing: '0.1em' };
 
 const langBtnLinkStyle = (isActive: boolean) => ({
