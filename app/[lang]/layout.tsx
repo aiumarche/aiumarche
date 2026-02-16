@@ -97,7 +97,7 @@ export default function RootLayout({
             <nav style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginBottom: '60px' }}>
               <Link href={`/${lang}`} style={footerLinkStyle}>HOME</Link>
               <Link href={`/${lang}/about`} style={footerLinkStyle}>ABOUT</Link>
-              <Link href={`/${lang}/contact`} style={footerLinkStyle}>CONTACT</Link>
+              <a href="mailto:aiumarche@gl.aiu.ac.jp">CONTACT</a>
             </nav>
 
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '40px', fontSize: '0.75rem', color: '#9fb3a8' }}>
