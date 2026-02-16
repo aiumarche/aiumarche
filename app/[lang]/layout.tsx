@@ -115,7 +115,7 @@ export default function RootLayout({
 }
 
 // スタイル定義
-const navLinkStyle = { color: '#2d5a27', textDecoration: 'none', fontSize: '1.2rem', fontWeight: 'bold' };
+const navLinkStyle = { color: '#2d5a27', textDecoration: 'none', fontSize: '1.0rem', fontWeight: 'bold' };
 const footerLinkStyle = { color: '#fff', textDecoration: 'none', fontSize: '0.85rem', letterSpacing: '0.1em' };
 
 const langBtnLinkStyle = (isActive: boolean) => ({
