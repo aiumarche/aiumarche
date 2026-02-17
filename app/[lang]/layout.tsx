@@ -26,9 +26,15 @@ export default function RootLayout({
   return (
     <html lang={lang}>
       <head>
+        {/* 🌟 タイトルを追加：検索結果に表示される名前になります */}
+        <title>AIU Marché | 国際教養大学</title>
+        {/* 🌟 サイトの説明を追加 */}
+        <meta name="description" content="秋田市・国際教養大学(AIU)で開催される学生主導のマーケット。地域の魅力がつまった出店者たちが集結します。" />
+        {/* 🌟 Search Console の認証タグを <head> の中へ移動 */}
+        <meta name="google-site-verification" content="uuT-6lPtBdU4p5c2nLJqIj9tEeSu1m39ghAKIjND0yo" />
+        
         <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&display=swap" rel="stylesheet" />
       </head>
-      <meta name="google-site-verification" content="uuT-6lPtBdU4p5c2nLJqIj9tEeSu1m39ghAKIjND0yo" />
       <body style={{ 
         margin: 0, display: 'flex', flexDirection: 'column', minHeight: '100vh',
         backgroundColor: '#f9f8f4', fontFamily: 'serif'
