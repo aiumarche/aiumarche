@@ -156,7 +156,7 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
             onMouseLeave={() => setIsMapHovered(false)}
           >
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.5516001095033!2d140.2119932765507!3d39.65977930117075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8fc03400000001%3A0x6a1617ec23497d91!2z5Zu96Zqb5pWZ6aSK5aSn5a2m!5e0!3m2!1sja!2sjp!4v1707900000000!5m2!1sja!2sjp" 
+              src="https://maps.app.goo.gl/wLxRtkTULKd1zdmeA" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
