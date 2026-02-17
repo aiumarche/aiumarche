@@ -28,6 +28,7 @@ export default function RootLayout({
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&display=swap" rel="stylesheet" />
       </head>
+      <meta name="google-site-verification" content="uuT-6lPtBdU4p5c2nLJqIj9tEeSu1m39ghAKIjND0yo" />
       <body style={{ 
         margin: 0, display: 'flex', flexDirection: 'column', minHeight: '100vh',
         backgroundColor: '#f9f8f4', fontFamily: 'serif'
