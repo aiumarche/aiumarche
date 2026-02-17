@@ -15,7 +15,7 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
   const [loading, setLoading] = useState(true);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   
-  // 🌟 変更：配列にして、複数を同時保持できるようにします
+  // 初期状態は全てのカテゴリを選択
   const [activeTabs, setActiveTabs] = useState<string[]>(["学外出店者", "学内出店者", "キッチンカー"]);
 
   useEffect(() => {
@@ -32,10 +32,9 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
     { id: "キッチンカー", ja: "キッチンカー", en: "Food Trucks" },
   ];
 
-  // 🌟 変更：クリックした時の処理（既にあれば消す、なければ追加する）
+  // タブの切り替え処理
   const toggleTab = (tabId: string) => {
     if (activeTabs.includes(tabId)) {
-      // 1つだけは必ず選択されている状態にする（全部消えるのを防ぐ）
       if (activeTabs.length > 1) {
         setActiveTabs(activeTabs.filter(t => t !== tabId));
       }
@@ -43,14 +42,6 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
       setActiveTabs([...activeTabs, tabId]);
     }
   };
-
-  // 🌟 変更：選択されている全てのカテゴリのショップをまとめる
-  const filteredShops = shops.filter(shop => {
-    const cat = shop.category;
-    if (!cat) return false;
-    const shopCats = Array.isArray(cat) ? cat : [cat];
-    return shopCats.some(c => activeTabs.includes(c));
-  });
 
   const eventData = shops.find(s => (s.timetable_img?.length > 0) || (s.map_img?.length > 0));
   const timetableImages = (isEn && eventData?.timetable_img_en?.length > 0) ? eventData.timetable_img_en : (eventData?.timetable_img || []);
@@ -77,9 +68,12 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
           color: #fff;
           box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3);
         }
+        .event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         @media (max-width: 768px) {
           .shops-main { padding: 60px 15px; }
+          .shops-title { font-size: 2rem; }
           .tab-button { padding: 8px 15px; font-size: 0.8rem; }
+          .shop-grid { grid-template-columns: 1fr !important; }
         }
       `}} />
 
@@ -90,7 +84,7 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
           <div style={{ width: '60px', height: '3px', backgroundColor: '#bd5532', margin: '0 auto', marginTop: '15px' }}></div>
         </div>
 
-        {/* 複数選択タブ */}
+        {/* カテゴリ選択タブ */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '50px', flexWrap: 'wrap' }}>
           {tabs.map((tab) => (
             <button
@@ -102,8 +96,6 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
               {isEn ? tab.en : tab.ja}
             </button>
           ))}
-          
-          {/* 🌟 全選択/解除を簡単にするためのボタン */}
           <button 
             onClick={() => setActiveTabs(tabs.map(t => t.id))}
             style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', textDecoration: 'underline', fontSize: '0.9rem' }}
@@ -116,29 +108,101 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
           <div style={{ textAlign: 'center', padding: '100px' }}>Loading...</div>
         ) : (
           <div style={{ padding: '0 10px' }}>
-            <div className="shop-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '30px' }}>
-              {filteredShops.map((shop) => (
-                <ShopCard key={shop.id} shop={shop} isEn={isEn} />
-              ))}
-            </div>
-            {filteredShops.length === 0 && (
+            {/* 🌟 修正：選択されたカテゴリごとに見出しとカードを表示 */}
+            {tabs.filter(tab => activeTabs.includes(tab.id)).map(tab => {
+              const categoryItems = shops.filter(shop => {
+                const cat = shop.category;
+                if (!cat) return false;
+                return Array.isArray(cat) ? cat.includes(tab.id) : cat === tab.id;
+              });
+
+              if (categoryItems.length === 0) return null;
+
+              return (
+                <section key={tab.id} style={{ marginBottom: '80px' }}>
+                  <h2 style={{ fontSize: '1.5rem', color: '#2d5a27', fontWeight: 'bold', marginBottom: '30px', borderLeft: '6px solid #bd5532', paddingLeft: '15px' }}>
+                    {isEn ? tab.en : tab.ja}
+                  </h2>
+                  <div className="shop-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '30px' }}>
+                    {categoryItems.map((shop) => (
+                      <ShopCard key={shop.id} shop={shop} isEn={isEn} />
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
+
+            {activeTabs.length === 0 && (
               <p style={{ textAlign: 'center', color: '#666', padding: '40px' }}>{isEn ? "No items selected" : "表示する項目がありません"}</p>
             )}
           </div>
         )}
-        
-        {/* タイムテーブル・マップセクションはそのまま下に表示 */}
-        {/* ... (中略：以前のコードと同じため、ファイル全体に貼り付ける際は上のコードを参考にしてください) ... */}
 
+        {/* タイムテーブル＆マップセクション */}
+        {(timetableImages.length > 0 || mapImages.length > 0) && (
+          <div style={{ marginTop: '100px', padding: '0 10px' }}>
+            <div className="event-grid">
+              {timetableImages.length > 0 && (
+                <div>
+                  <h2 style={{ fontSize: '1.3rem', color: '#2d5a27', fontWeight: 'bold', marginBottom: '20px', borderLeft: '5px solid #bd5532', paddingLeft: '12px' }}>
+                    {isEn ? "Time Table" : "タイムテーブル"}
+                  </h2>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px' }}>
+                    {timetableImages.map((img: any, i: number) => (
+                      <div key={i} onClick={() => setSelectedImg(img.url)} className="thumb-container" style={thumbContainerStyle}>
+                        <img src={img.url} alt="" style={thumbImgStyle} />
+                        <div style={zoomOverlayStyle}>Click to Zoom</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {mapImages.length > 0 && (
+                <div>
+                  <h2 style={{ fontSize: '1.3rem', color: '#2d5a27', fontWeight: 'bold', marginBottom: '20px', borderLeft: '5px solid #bd5532', paddingLeft: '12px' }}>
+                    {isEn ? "Venue Map" : "会場マップ"}
+                  </h2>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px' }}>
+                    {mapImages.map((img: any, i: number) => (
+                      <div key={i} onClick={() => setSelectedImg(img.url)} className="thumb-container" style={thumbContainerStyle}>
+                        <img src={img.url} alt="" style={thumbImgStyle} />
+                        <div style={zoomOverlayStyle}>Click to Zoom</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </main>
-      
-      {/* 画像拡大モーダルもそのまま保持 */}
-      {/* ... */}
+
+      {/* 画像拡大モーダル */}
+      {selectedImg && (
+        <div 
+          onClick={() => setSelectedImg(null)}
+          style={{
+            position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+            backgroundColor: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            zIndex: 1000, cursor: 'zoom-out', padding: '20px'
+          }}
+        >
+          <img src={selectedImg} alt="Expanded" style={{ maxWidth: '95%', maxHeight: '95%', objectFit: 'contain', borderRadius: '10px' }} />
+        </div>
+      )}
     </div>
   );
 }
 
-// ShopSectionを介さず直接Gridを出す形にスッキリさせました
+const thumbContainerStyle: React.CSSProperties = {
+  position: 'relative', width: '100%', maxWidth: '320px', height: '240px',
+  borderRadius: '15px', overflow: 'hidden', cursor: 'zoom-in',
+  boxShadow: '0 8px 20px rgba(0,0,0,0.08)', backgroundColor: '#fff', border: '1px solid #eee'
+};
+const thumbImgStyle: React.CSSProperties = { width: '100%', height: '100%', objectFit: 'cover' };
+const zoomOverlayStyle: React.CSSProperties = { position: 'absolute', bottom: 0, left: 0, width: '100%', backgroundColor: 'rgba(45, 90, 39, 0.7)', color: '#fff', fontSize: '0.75rem', textAlign: 'center', padding: '5px 0' };
+
 function ShopCard({ shop, isEn }: { shop: any, isEn: boolean }) {
   const [isHovered, setIsHovered] = useState(false);
   const name = isEn ? (shop.name_en || shop.name) : shop.name;
