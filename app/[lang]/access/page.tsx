@@ -103,7 +103,7 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
                   </>
                 ) : (
                   <>
-                    JR秋田駅 東口乗り場より「国際教養大学線」に乗車（約35分）<br />
+                    イオンモール秋田より「国際教養大学線」に乗車（約10分）<br />
                     バス停「国際教養大学」下車すぐ
                   </>
                 )}
@@ -156,7 +156,7 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
             onMouseLeave={() => setIsMapHovered(false)}
           >
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.1963212351234!2d140.13426747656372!3d39.60029967158434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8fc3292403666f%3A0xc392817343d8393e!2z5Zu96Zqb5pWZ6aSK5aSn5a2m!5e0!3m2!1sja!2sjp!4v1715000000000!5m2!1sja!2sjp" 
+              src="https://www.google.com/maps/place/%E5%9B%BD%E9%9A%9B%E6%95%99%E9%A4%8A%E5%A4%A7%E5%AD%A6/@39.6267037,140.1955656,17z/data=!3m1!4b1!4m6!3m5!1s0x5f8fc0bcd4a7ee17:0xff1cc20ab98f7aaa!8m2!3d39.6266996!4d140.1981405!16zL20vMGZwano0?hl=ja&entry=ttu&g_ep=EgoyMDI2MDIxMS4wIKXMDSoASAFQAw%3D%3D" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
