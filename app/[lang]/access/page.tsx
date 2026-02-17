@@ -155,15 +155,15 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
             onMouseEnter={() => setIsMapHovered(true)}
             onMouseLeave={() => setIsMapHovered(false)}
           >
-            <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3063.4880590861113!2d140.1416805763628!3d39.728731797200564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8fdf2891390317%3A0xc6a885ec15112185!2z5Zu96Zqb5pWZ6aSK5aSn5a2m!5e0!3m2!1sja!2sjp!4v1708168000000!5m2!1sja!2sjp"
-    width="100%"
-    height="100%"
-    style={{ border: 0 }}
-    allowFullScreen={true}
-    loading="lazy"
-    referrerPolicy="no-referrer-when-downgrade"
-  ></iframe>
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.326260100652!2d140.19543167645604!3d39.626888203531635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8fbe07a8df8a2b%3A0x600b46401037340d!2z5Zu96Zqb5pWZ6aSe5aSn5a2m!5e0!3m2!1sja!2sjp!4v1739789315000!5m2!1sja!2sjp" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen={true} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
 
         </div>
