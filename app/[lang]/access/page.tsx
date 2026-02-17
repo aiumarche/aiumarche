@@ -155,15 +155,15 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
             onMouseEnter={() => setIsMapHovered(true)}
             onMouseLeave={() => setIsMapHovered(false)}
           >
-            <iframe 
-              src="https://maps.app.goo.gl/wLxRtkTULKd1zdmeA" 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+            <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3072.083313072382!2d140.2115167765104!3d39.61058090408581!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8fbd86f7b11d9d%3A0x66f6c382173e33f3!2z5Zu96Zqb5pWZ6aSK5aSn5a2m!5e0!3m2!1sja!2sjp!4v1711200000000!5m2!1sja!2sjp"
+    width="100%"
+    height="100%"
+    style={{ border: 0 }}
+    allowFullScreen={true}
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+  ></iframe>
           </div>
 
         </div>
