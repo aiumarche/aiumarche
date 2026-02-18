@@ -129,7 +129,7 @@ export default function RootLayout({
             </nav>
 
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '30px', fontSize: '0.7rem', color: '#9fb3a8' }}>
-              © AIU Marché. All Rights Reserved.
+              © AIU Marché. 
             </div>
           </div>
         </footer>
