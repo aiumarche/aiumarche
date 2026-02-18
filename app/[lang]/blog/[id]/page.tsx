@@ -31,6 +31,11 @@ export default function BlogDetail() {
   const displayTitle = isEn && post.title_en ? post.title_en : post.title;
   const displayContent = isEn && post.content_en ? post.content_en : post.content;
 
+  // 🌟 画像URLの取得（img または img_en）
+  const imageUrl = isEn 
+    ? (post.img_en?.[0]?.url || post.img?.[0]?.url) 
+    : (post.img?.[0]?.url);
+
   const displayDate = new Date(post.publishedAt || post.createdAt).toLocaleDateString(
     isEn ? 'en-US' : 'ja-JP',
     { year: 'numeric', month: isEn ? 'short' : '2-digit', day: '2-digit' }
@@ -41,7 +46,6 @@ export default function BlogDetail() {
       position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', 
       backgroundColor: '#fff', zIndex: 9999, overflowY: 'auto'
     }}>
-      {/* 🌟 スマホ用のスタイルを注入 */}
       <style dangerouslySetInnerHTML={{ __html: `
         .detail-container { padding: 40px 10%; }
         .detail-content img { max-width: 100%; height: auto; border-radius: 10px; margin: 20px 0; }
@@ -73,6 +77,23 @@ export default function BlogDetail() {
           <p style={{ color: '#bd5532', marginTop: '15px', fontWeight: 'bold' }}>
             {displayDate}
           </p>
+
+          {/* 🌟 修正：記事のメイン画像を表示 */}
+          {imageUrl && (
+            <div style={{ marginTop: '30px', textAlign: 'center' }}>
+              <img 
+                src={imageUrl} 
+                alt="" 
+                style={{ 
+                  maxWidth: '100%', 
+                  maxHeight: '500px', // 大きすぎないように制限
+                  height: 'auto', 
+                  borderRadius: '15px', 
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.05)' 
+                }} 
+              />
+            </div>
+          )}
 
           <div 
             className="detail-content"
