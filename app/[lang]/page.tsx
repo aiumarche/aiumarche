@@ -219,15 +219,15 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
     }}>
       <div style={{ textAlign: 'center', marginBottom: '40px' }}>
         
-        {/* 🌟 1. ポスター画像の表示（ここを修正しました） */}
+        {/* 🌟 修正ポイント：画像の取得判定をさらに強化 */}
         {(() => {
           const ev = events[0];
-          // 管理画面の「poster」「poster_en」のどちらかにあるurlを探す
+          // 全てのパターンの画像パスをチェック
           const posterUrl = isEn 
-            ? (ev.poster_en?.url || ev.poster?.url) 
-            : ev.poster?.url;
+            ? (ev.poster_en?.url || ev.poster?.url || ev.poster?.[0]?.url) 
+            : (ev.poster?.url || ev.poster?.[0]?.url);
 
-          return posterUrl && (
+          return posterUrl ? (
             <div style={{ marginBottom: '40px' }}>
               <img 
                 src={posterUrl} 
@@ -241,6 +241,9 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
                 }} 
               />
             </div>
+          ) : (
+            /* 🔍 デバッグ用：画像が出ない時にデータの情報を薄く表示（確認できたら消せます） */
+            <p style={{ color: '#ccc', fontSize: '0.7rem' }}>※画像データが見つかりません</p>
           );
         })()}
 
@@ -249,21 +252,17 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
         <p style={{ fontSize: '1.5rem', color: '#333', margin: '10px 0' }}>
           {isEn ? (events[0].english_info?.date_en || events[0].date) : events[0].date}
         </p>
-
         <p style={{ fontSize: '1.5rem', color: '#333', margin: '10px 0' }}>
           {isEn ? (events[0].english_info?.time_en || events[0].time) : events[0].time}
         </p>
-
         <p style={{ fontSize: '1.1rem', color: '#555', marginTop: '20px' }}>
           {isEn ? (events[0].english_info?.place_en || events[0].place) : events[0].place}
         </p>
-
         <p style={{ fontSize: '0.85rem', color: '#888', marginTop: '10px' }}>
           {isEn ? (events[0].english_info?.note_en || events[0].note) : events[0].note}
         </p>
       </div>
 
-      {/* 🌟 2. 出店料（Vendor Fee）の表示（元に戻しました） */}
       <div style={{ maxWidth: '500px', margin: '0 auto', borderTop: '2px solid #f9f8f4', paddingTop: '40px' }}>
         <p style={{ fontSize: '0.85rem', color: '#bd5532', fontWeight: 'bold', marginBottom: '20px', textAlign: 'center', letterSpacing: '0.1em' }}>VENDOR FEE</p>
         
