@@ -29,17 +29,17 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
       for (const article of contents) {
         if (article.event && Array.isArray(article.event)) {
           foundTimeline = article.event.map((item: any) => {
-            const d = item.timeline || item;
-            return {
-              year: d.year || "",
-              month: d.month || "",
-              day: d.day || "",
-              text: d.text || "",
-              text_en: d.text_en || item.text_en || "", 
-              image: d.image || null,
-              link: d.link || ""
-            };
-          });
+  const d = item.timeline || item; // 日本語版のデータを基本にする
+  return {
+    year: d.year || "",
+    month: d.month || "",
+    day: d.day || "",
+    image: d.image || null, 
+    link: d.link || "",     
+    text: d.text || "", 
+    text_en: d.text_en || item.text_en || d.text || "" 
+  };
+});
 
           foundTimeline.sort((a, b) => {
             if (a.year !== b.year) return Number(a.year) - Number(b.year);
@@ -181,7 +181,13 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
                       </span>
                     </div>
                     <div dangerouslySetInnerHTML={{ __html: isEn && d.text_en ? d.text_en : d.text }} style={{ fontSize: '1rem', color: '#333', lineHeight: '1.9' }} />
-                    {d.image?.url && <img src={d.image.url} alt="" style={{ width: '100%', borderRadius: '15px', marginTop: '20px' }} />}
+                    {d.image?.url && (
+  <img 
+    src={`${d.image.url}?w=800&q=75`} 
+    alt="" 
+    style={{ width: '100%', borderRadius: '15px', marginTop: '20px' }} 
+  />
+)}
                     {d.link && (
                       <div style={{ marginTop: '25px', textAlign: 'right' }}>
                         <span style={{ padding: '10px 22px', borderRadius: '50px', backgroundColor: '#f9f9f9', color: '#2d5a27', fontSize: '0.8rem', fontWeight: 'bold', border: '1px solid #eee' }}>
