@@ -103,7 +103,7 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
                   </>
                 ) : (
                   <>
-                    イオンモール秋田より「国際教養大学線」に乗車（約10分）<br />
+                    イオンモール秋田より「御所野線」に乗車（約10分）<br />
                     バス停「国際教養大学」下車すぐ
                   </>
                 )}
