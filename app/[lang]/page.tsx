@@ -142,9 +142,11 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
   {news.map((item) => {
   const displayTitle = isEn && item.title_en ? item.title_en : item.title;
 
-  // 🌟 画像のURLを取得（"images" というフィールド名の場合）
-  // microCMSの画像フィールド名に合わせて item.images[0].url または item.image.url に調整してください
-  const imageUrl = item.images?.[0]?.url || item.image?.url;
+  // 🌟 フィールドIDに合わせて画像URLを取得
+  // 日本語時は item.img、英語時は item.img_en から取得します
+  const imageUrl = isEn 
+    ? (item.img_en?.[0]?.url || item.img?.[0]?.url) // 英語画像がなければ日本語画像を出す
+    : (item.img?.[0]?.url);
 
   const displayDate = new Date(item.publishedAt || item.createdAt).toLocaleDateString(
     isEn ? 'en-US' : 'ja-JP',
@@ -162,7 +164,7 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
           cursor: 'pointer',
           border: '1px solid #f0f0f0',
           height: '100%',
-          overflow: 'hidden', // 画像の角を丸めるために必要
+          overflow: 'hidden',
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = 'translateY(-10px)';
@@ -173,7 +175,7 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
           e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
         }}
       >
-        {/* 🌟 画像がある場合に表示 */}
+        {/* 🖼️ 画像表示エリア */}
         {imageUrl && (
           <div style={{ width: '100%', height: '180px', overflow: 'hidden' }}>
             <img 
