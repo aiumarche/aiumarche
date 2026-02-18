@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import { client } from "@/lib/microcms"; 
 import { useParams } from "next/navigation";
-import Link from "next/link"; // 🌟 追加
+import Link from "next/link";
 
 export default function RecruitPage() {
   const params = useParams();
   const lang = params.lang;
-  const isEn = lang === 'en'; // 🌟 判定を共通化
+  const isEn = lang === 'en';
   const [recruits, setRecruits] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -58,6 +58,7 @@ export default function RecruitPage() {
           .recruit-main { padding: 60px 15px; }
           .recruit-title { font-size: 2rem !important; }
           .coming-soon-box { padding: 60px 20px; }
+          .recruit-card { padding: 30px 20px !important; }
         }
 
         .cms-content img {
@@ -78,30 +79,55 @@ export default function RecruitPage() {
         {loading ? (
           <p style={{ textAlign: 'center', padding: '100px' }}>{isEn ? 'Loading...' : '読み込み中...'}</p>
         ) : recruits.length > 0 ? (
-          <div style={{ display: 'grid', gap: '30px' }}>
-            {recruits.map((item) => (
-              <section key={item.id} style={{ 
-                background: '#fff', 
-                padding: '40px 60px',
-                borderRadius: '40px', 
-                boxShadow: '0 20px 60px rgba(0,0,0,0.05)', 
-                border: '1px solid #f5f5f5' 
-              }}>
-                <h2 style={{ color: '#2d5a27', marginBottom: '20px', fontSize: '1.5rem', borderLeft: '4px solid #bd5532', paddingLeft: '15px' }}>
-                  {isEn ? (item.title_en || item.title) : item.title}
-                </h2>
-                <div 
-                  className="cms-content"
-                  style={{ lineHeight: '1.9', color: '#333', overflowWrap: 'break-word' }}
-                  dangerouslySetInnerHTML={{ 
-                    __html: isEn ? (item.content_en || item.content) : item.content 
-                  }} 
-                />
-              </section>
-            ))}
+          <div style={{ display: 'grid', gap: '40px' }}>
+            {recruits.map((item) => {
+              // 🌟 画像URLを取得 (img または img_en)
+              const imageUrl = isEn 
+                ? (item.img_en?.[0]?.url || item.img?.[0]?.url) 
+                : (item.img?.[0]?.url);
+
+              return (
+                <section key={item.id} className="recruit-card" style={{ 
+                  background: '#fff', 
+                  padding: '40px 60px',
+                  borderRadius: '40px', 
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.05)', 
+                  border: '1px solid #f5f5f5',
+                  overflow: 'hidden'
+                }}>
+                  <h2 style={{ color: '#2d5a27', marginBottom: '25px', fontSize: '1.5rem', borderLeft: '4px solid #bd5532', paddingLeft: '15px' }}>
+                    {isEn ? (item.title_en || item.title) : item.title}
+                  </h2>
+
+                  {/* 🌟 修正：募集記事の画像を表示 */}
+                  {imageUrl && (
+                    <div style={{ marginBottom: '30px', textAlign: 'center' }}>
+                      <img 
+                        src={imageUrl} 
+                        alt="" 
+                        style={{ 
+                          maxWidth: '100%', 
+                          maxHeight: '400px',
+                          height: 'auto', 
+                          borderRadius: '15px',
+                          objectFit: 'cover'
+                        }} 
+                      />
+                    </div>
+                  )}
+
+                  <div 
+                    className="cms-content"
+                    style={{ lineHeight: '1.9', color: '#333', overflowWrap: 'break-word' }}
+                    dangerouslySetInnerHTML={{ 
+                      __html: isEn ? (item.content_en || item.content) : item.content 
+                    }} 
+                  />
+                </section>
+              );
+            })}
           </div>
         ) : (
-          /* 🌟 修正：データがない時の Coming Soon ボックス */
           <div className="coming-soon-box">
             <h2 style={{ fontSize: '2.5rem', color: '#2d5a27', marginBottom: '20px' }}>Coming Soon</h2>
             <p style={{ color: '#666', fontSize: '1.1rem', lineHeight: '1.8', whiteSpace: 'pre-wrap' }}>
