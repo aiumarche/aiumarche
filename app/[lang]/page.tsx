@@ -219,9 +219,9 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
     }}>
       <div style={{ textAlign: 'center', marginBottom: '40px' }}>
         
-        {/* 🌟 ポスター画像の追加 */}
+        {/* 🌟 ポスター画像の表示エリアを追加 */}
         {(() => {
-          // 英語時は poster_en を優先、なければ poster を表示
+          // 管理画面のフィールドID「poster」と「poster_en」を使用
           const posterUrl = isEn 
             ? (events[0].poster_en?.url || events[0].poster?.url) 
             : events[0].poster?.url;
@@ -233,9 +233,9 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
                 alt="Event Poster" 
                 style={{ 
                   maxWidth: '100%', 
-                  maxHeight: '600px', // ポスターが長すぎないよう調整
-                  borderRadius: '10px',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+                  maxHeight: '600px', 
+                  borderRadius: '15px',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
                 }} 
               />
             </div>
@@ -244,31 +244,26 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
 
         <p style={{ fontSize: '0.85rem', color: '#bd5532', fontWeight: 'bold', marginBottom: '10px', letterSpacing: '0.1em' }}>DATE & PLACE</p>
         
-        {/* 日付 */}
         <p style={{ fontSize: '1.5rem', color: '#333', margin: '10px 0' }}>
           {isEn ? (events[0].english_info?.date_en || events[0].date) : events[0].date}
         </p>
 
-        {/* 時間 */}
         <p style={{ fontSize: '1.5rem', color: '#333', margin: '10px 0' }}>
           {isEn ? (events[0].english_info?.time_en || events[0].time) : events[0].time}
         </p>
 
-        {/* 場所 */}
         <p style={{ fontSize: '1.1rem', color: '#555', marginTop: '20px' }}>
           {isEn ? (events[0].english_info?.place_en || events[0].place) : events[0].place}
         </p>
 
-        {/* 補足事項 */}
         <p style={{ fontSize: '0.85rem', color: '#888', marginTop: '10px' }}>
           {isEn ? (events[0].english_info?.note_en || events[0].note) : events[0].note}
         </p>
       </div>
 
       <div style={{ maxWidth: '500px', margin: '0 auto', borderTop: '2px solid #f9f8f4', paddingTop: '40px' }}>
-        {/* 出店料などの情報はそのまま */}
         <p style={{ fontSize: '0.85rem', color: '#bd5532', fontWeight: 'bold', marginBottom: '20px', textAlign: 'center', letterSpacing: '0.1em' }}>VENDOR FEE</p>
-        {/* ...（既存の priceRowStyle 部分）... */}
+        
         <div style={priceRowStyle}>
           <span>{isEn ? "External Vendors" : "学外出店"}</span>
           <span>{isEn && events[0].fee_outer_en ? events[0].fee_outer_en : events[0].fee_outer}</span>
