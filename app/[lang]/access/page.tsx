@@ -156,14 +156,14 @@ export default function AccessPage({ params }: { params: Promise<{ lang: string 
             onMouseLeave={() => setIsMapHovered(false)}
           >
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.792576326164!2d140.19323757648324!3d39.65439730166258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8fc034f71a933d%3A0x6b772c73024c6e9!2z5Zu96Zqb5pWZ6aSK5aSn5a2m!5e0!3m2!1sja!2sjp!4v1708170000000!5m2!1sja!2sjp" 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.439814423854!2d140.19556557656608!3d39.62670370311546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8f80bc43a7ee17%3A0xff1cc20ab98f7aaa!2z5Zu96Zqb5pWZ6aSK5aSn5a2m!5e0!3m2!1sja!2sjp!4v1707412345678!5m2!1sja!2sjp" 
+  width="100%" 
+  height="100%" 
+  style={{ border: 0 }} 
+  allowFullScreen={true} 
+  loading="lazy" 
+  referrerPolicy="no-referrer-when-downgrade"
+></iframe>
           </div>
 
         </div>
