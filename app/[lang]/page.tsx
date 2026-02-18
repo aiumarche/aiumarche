@@ -140,43 +140,54 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
 </h2>
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '25px', marginBottom: '100px' }}>
   {news.map((item) => {
-    // 🌟 英語タイトルがあれば切り替え、なければ日本語を表示
-    const displayTitle = isEn && item.title_en ? item.title_en : item.title;
+  const displayTitle = isEn && item.title_en ? item.title_en : item.title;
 
-    // 🌟 日付を言語に合わせてフォーマット
-    const displayDate = new Date(item.publishedAt || item.createdAt).toLocaleDateString(
-      isEn ? 'en-US' : 'ja-JP',
-      { year: 'numeric', month: isEn ? 'short' : '2-digit', day: '2-digit' }
-    );
+  // 🌟 画像のURLを取得（"images" というフィールド名の場合）
+  // microCMSの画像フィールド名に合わせて item.images[0].url または item.image.url に調整してください
+  const imageUrl = item.images?.[0]?.url || item.image?.url;
 
-    return (
-      <Link href={`/${currentLang}/blog/${item.id}`} key={item.id} style={{ textDecoration: 'none', color: 'inherit' }}>
-        <div
-          style={{
-            background: '#fff',
-            padding: '25px', // 少し広めに調整
-            borderRadius: '20px', // SHOPSと統一感を出すために少し丸く
-            boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
-            transition: 'all 0.3s ease',
-            cursor: 'pointer',
-            border: '1px solid #f0f0f0',
-            height: '100%', // 高さを揃える
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-10px)';
-            e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
-          }}
-        >
-          {/* 日付ラベル */}
-          <p style={{ color: '#bd5532', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '12px' }}>
+  const displayDate = new Date(item.publishedAt || item.createdAt).toLocaleDateString(
+    isEn ? 'en-US' : 'ja-JP',
+    { year: 'numeric', month: isEn ? 'short' : '2-digit', day: '2-digit' }
+  );
+
+  return (
+    <Link href={`/${currentLang}/blog/${item.id}`} key={item.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div
+        style={{
+          background: '#fff',
+          borderRadius: '20px',
+          boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+          transition: 'all 0.3s ease',
+          cursor: 'pointer',
+          border: '1px solid #f0f0f0',
+          height: '100%',
+          overflow: 'hidden', // 画像の角を丸めるために必要
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'translateY(-10px)';
+          e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'translateY(0)';
+          e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+        }}
+      >
+        {/* 🌟 画像がある場合に表示 */}
+        {imageUrl && (
+          <div style={{ width: '100%', height: '180px', overflow: 'hidden' }}>
+            <img 
+              src={imageUrl} 
+              alt="" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+            />
+          </div>
+        )}
+
+        <div style={{ padding: '20px' }}>
+          <p style={{ color: '#bd5532', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '10px' }}>
             {displayDate}
           </p>
-          
-          {/* タイトル */}
           <h3 style={{ 
             fontSize: '1rem', 
             color: '#2d5a27', 
@@ -187,9 +198,10 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
             {displayTitle}
           </h3>
         </div>
-      </Link>
-    );
-  })}
+      </div>
+    </Link>
+  );
+})}
 </div>
 
         {/* 🔴 EVENT INFO セクション */}
