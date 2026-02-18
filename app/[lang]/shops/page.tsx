@@ -15,12 +15,13 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
   const [loading, setLoading] = useState(true);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   
-  // 初期状態は全てのカテゴリを選択
   const [activeTabs, setActiveTabs] = useState<string[]>(["学外出店者", "学内出店者", "キッチンカー"]);
 
   useEffect(() => {
     client.get({ endpoint: "shops", queries: { limit: 100 } })
       .then((res) => {
+        // 🌟 修正：出店者データ（categoryがあるもの）だけをカウントの対象にする
+        const shopContents = res.contents?.filter((item: any) => item.category) || [];
         setShops(res.contents || []);
         setLoading(false);
       });
@@ -32,7 +33,6 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
     { id: "キッチンカー", ja: "キッチンカー", en: "Food Trucks" },
   ];
 
-  // タブの切り替え処理
   const toggleTab = (tabId: string) => {
     if (activeTabs.includes(tabId)) {
       if (activeTabs.length > 1) {
@@ -42,6 +42,9 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
       setActiveTabs([...activeTabs, tabId]);
     }
   };
+
+  // 出店データがあるかどうかを確認
+  const hasShops = shops.some(shop => shop.category);
 
   const eventData = shops.find(s => (s.timetable_img?.length > 0) || (s.map_img?.length > 0));
   const timetableImages = (isEn && eventData?.timetable_img_en?.length > 0) ? eventData.timetable_img_en : (eventData?.timetable_img || []);
@@ -68,12 +71,19 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
           color: #fff;
           box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3);
         }
-        .event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .coming-soon-box {
+          background: #fff;
+          border-radius: 20px;
+          padding: 80px 40px;
+          text-align: center;
+          max-width: 600px;
+          margin: 40px auto;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+          border: 1px solid #eee;
+        }
         @media (max-width: 768px) {
           .shops-main { padding: 60px 15px; }
-          .shops-title { font-size: 2rem; }
-          .tab-button { padding: 8px 15px; font-size: 0.8rem; }
-          .shop-grid { grid-template-columns: 1fr !important; }
+          .coming-soon-box { padding: 60px 20px; margin: 20px auto; }
         }
       `}} />
 
@@ -84,64 +94,65 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
           <div style={{ width: '60px', height: '3px', backgroundColor: '#bd5532', margin: '0 auto', marginTop: '15px' }}></div>
         </div>
 
-        {/* カテゴリ選択タブ */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '50px', flexWrap: 'wrap' }}>
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              className={`tab-button ${activeTabs.includes(tab.id) ? 'active' : ''}`}
-              onClick={() => toggleTab(tab.id)}
-            >
-              {activeTabs.includes(tab.id) ? '✓ ' : ''}
-              {isEn ? tab.en : tab.ja}
-            </button>
-          ))}
-          <button 
-            onClick={() => setActiveTabs(tabs.map(t => t.id))}
-            style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', textDecoration: 'underline', fontSize: '0.9rem' }}
-          >
-            {isEn ? "Select All" : "全選択"}
-          </button>
-        </div>
-
         {loading ? (
           <div style={{ textAlign: 'center', padding: '100px' }}>Loading...</div>
-        ) : (
-          <div style={{ padding: '0 10px' }}>
-            {/* 🌟 修正：選択されたカテゴリごとに見出しとカードを表示 */}
-            {tabs.filter(tab => activeTabs.includes(tab.id)).map(tab => {
-              const categoryItems = shops.filter(shop => {
-                const cat = shop.category;
-                if (!cat) return false;
-                return Array.isArray(cat) ? cat.includes(tab.id) : cat === tab.id;
-              });
-
-              if (categoryItems.length === 0) return null;
-
-              return (
-                <section key={tab.id} style={{ marginBottom: '80px' }}>
-                  <h2 style={{ fontSize: '1.5rem', color: '#2d5a27', fontWeight: 'bold', marginBottom: '30px', borderLeft: '6px solid #bd5532', paddingLeft: '15px' }}>
-                    {isEn ? tab.en : tab.ja}
-                  </h2>
-                  <div className="shop-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '30px' }}>
-                    {categoryItems.map((shop) => (
-                      <ShopCard key={shop.id} shop={shop} isEn={isEn} />
-                    ))}
-                  </div>
-                </section>
-              );
-            })}
-
-            {activeTabs.length === 0 && (
-              <p style={{ textAlign: 'center', color: '#666', padding: '40px' }}>{isEn ? "No items selected" : "表示する項目がありません"}</p>
-            )}
+        ) : !hasShops ? (
+          /* 🌟 修正：ショップデータが一件もない時の Coming Soon 表示 */
+          <div className="coming-soon-box">
+            <h2 style={{ fontSize: '2.5rem', color: '#2d5a27', marginBottom: '20px' }}>Coming Soon</h2>
+            <p style={{ color: '#666', fontSize: '1.1rem', lineHeight: '1.8' }}>
+              {isEn 
+                ? "Shop information is currently being prepared.\nPlease stay tuned for updates!" 
+                : "出店情報は現在準備中です。\n公開まで今しばらくお待ちください。"}
+            </p>
           </div>
+        ) : (
+          <>
+            {/* カテゴリ選択タブ */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '50px', flexWrap: 'wrap' }}>
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  className={`tab-button ${activeTabs.includes(tab.id) ? 'active' : ''}`}
+                  onClick={() => toggleTab(tab.id)}
+                >
+                  {activeTabs.includes(tab.id) ? '✓ ' : ''}
+                  {isEn ? tab.en : tab.ja}
+                </button>
+              ))}
+            </div>
+
+            <div style={{ padding: '0 10px' }}>
+              {tabs.filter(tab => activeTabs.includes(tab.id)).map(tab => {
+                const categoryItems = shops.filter(shop => {
+                  const cat = shop.category;
+                  if (!cat) return false;
+                  return Array.isArray(cat) ? cat.includes(tab.id) : cat === tab.id;
+                });
+
+                if (categoryItems.length === 0) return null;
+
+                return (
+                  <section key={tab.id} style={{ marginBottom: '80px' }}>
+                    <h2 style={{ fontSize: '1.5rem', color: '#2d5a27', fontWeight: 'bold', marginBottom: '30px', borderLeft: '6px solid #bd5532', paddingLeft: '15px' }}>
+                      {isEn ? tab.en : tab.ja}
+                    </h2>
+                    <div className="shop-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '30px' }}>
+                      {categoryItems.map((shop) => (
+                        <ShopCard key={shop.id} shop={shop} isEn={isEn} />
+                      ))}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          </>
         )}
 
-        {/* タイムテーブル＆マップセクション */}
+        {/* タイムテーブル＆マップはデータがあれば常に表示 */}
         {(timetableImages.length > 0 || mapImages.length > 0) && (
           <div style={{ marginTop: '100px', padding: '0 10px' }}>
-            <div className="event-grid">
+             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
               {timetableImages.length > 0 && (
                 <div>
                   <h2 style={{ fontSize: '1.3rem', color: '#2d5a27', fontWeight: 'bold', marginBottom: '20px', borderLeft: '5px solid #bd5532', paddingLeft: '12px' }}>
@@ -178,7 +189,6 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
         )}
       </main>
 
-      {/* 画像拡大モーダル */}
       {selectedImg && (
         <div 
           onClick={() => setSelectedImg(null)}
@@ -195,6 +205,7 @@ export default function ShopsPage({ params }: { params: Promise<{ lang: string }
   );
 }
 
+// ... (以下 thumbContainerStyle などの定義と ShopCard 関数は前回と同じ)
 const thumbContainerStyle: React.CSSProperties = {
   position: 'relative', width: '100%', maxWidth: '320px', height: '240px',
   borderRadius: '15px', overflow: 'hidden', cursor: 'zoom-in',
