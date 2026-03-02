@@ -58,32 +58,34 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
     <div style={{ position: 'relative', zIndex: 1, backgroundColor: '#fff', minHeight: '100vh' }}>
 
       {/* 📸 メイン写真 ＆ 🟠 ボタン */}
-      <section style={{ position: 'relative', width: '100%', height: '70vh', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
-          {bgImages.length > 0 && (
-            <Swiper
-              modules={[Autoplay, EffectFade]}
-              effect="fade"
-              fadeEffect={{ crossFade: true }}
-              loop={true}
-              autoplay={{ delay: 3000, disableOnInteraction: false }}
-              style={{ width: '100%', height: '100%' }}
-            >
-              {bgImages.map((img, index) => (
-                <SwiperSlide key={index}>
-                  <div style={{
-                    width: '100%',
-                    height: '100%',
-                    backgroundImage: `url(${img.url})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    opacity: 0.6
-                  }}></div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          )}
-        </div>
+<section style={{ position: 'relative', width: '100%', height: '70vh', overflow: 'hidden', backgroundColor: '#f9f9f9' }}> {/* 🌟 背景色を薄く付けておく */}
+  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
+    {bgImages.length > 0 && (
+      <Swiper
+        modules={[Autoplay, EffectFade]}
+        effect="fade"
+        fadeEffect={{ crossFade: true }}
+        loop={true}
+        autoplay={{ delay: 4000, disableOnInteraction: false }}
+        style={{ width: '100%', height: '100%' }}
+      >
+        {bgImages.map((img, index) => (
+          <SwiperSlide key={index}>
+            <div style={{
+              width: '100%',
+              height: '100%',
+              // 🌟 修正：転送量を減らすために ?w=1400&q=80 を追加
+              backgroundImage: `url(${img.url}?w=1400&q=80)`, 
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: 0.6,
+              transition: 'opacity 1s ease-in-out'
+            }}></div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    )}
+  </div>
 
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10, textAlign: 'center', width: '100%' }}>
           <h1 style={{
