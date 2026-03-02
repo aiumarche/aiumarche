@@ -155,8 +155,8 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
 
   return (
   <Link 
-    // 🌟 カテゴリ（item.category）が存在すればそれを利用し、なければ 'blog' を使う設定
-    href={`/${currentLang}/${item.category || 'blog'}/${item.id}`} 
+    // 🌟 カテゴリ名が何であっても、強制的に blog フォルダへ飛ばす
+    href={`/${currentLang}/blog/${item.id}`} 
     key={item.id} 
     style={{ textDecoration: 'none', color: 'inherit' }}
   >
