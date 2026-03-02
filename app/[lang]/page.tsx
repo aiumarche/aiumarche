@@ -154,9 +154,14 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
   );
 
   return (
-    <Link href={`/${currentLang}/blog/${item.id}`} key={item.id} style={{ textDecoration: 'none', color: 'inherit' }}>
-      <div
-        style={{
+  <Link 
+    // 🌟 カテゴリ（item.category）が存在すればそれを利用し、なければ 'blog' を使う設定
+    href={`/${currentLang}/${item.category || 'blog'}/${item.id}`} 
+    key={item.id} 
+    style={{ textDecoration: 'none', color: 'inherit' }}
+  >
+    <div
+      style={{
           background: '#fff',
           borderRadius: '20px',
           boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
