@@ -34,7 +34,7 @@ export default function Home({ params }: { params: Promise<{ lang: string }> }) 
   // 🌟 ここを ABOUT から取得するように修正
   client.get({
     endpoint: "about",
-    contentId: "yn0i5llt8k" // 📸 画像 9:44:10 に表示されているコンテンツID
+    contentId: "mhror8idq5ov"
   })
   .then((res: any) => {
     // res.eyecatch に画像配列が入っているので、そのままセット
