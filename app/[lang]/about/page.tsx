@@ -81,14 +81,32 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
           box-shadow: 0 30px 60px rgba(0,0,0,0.12) !important;
         }
 
-        /* 📱 スマホ対応用レスポンシブスタイル */
+        /* 📱 スマホ対応用レスポンシブスタイル（修正版） */
         @media (max-width: 768px) {
-          .timeline-line { left: 20px !important; transform: none !important; }
-          .timeline-row { justify-content: flex-start !important; padding-left: 50px !important; }
-          .timeline-dot { left: 20px !important; transform: translateX(-50%) !important; }
-          .timeline-card { width: 95% !important; padding: 20px !important; }
-          .section-container { padding: 30px 20px !important; }
-          .main-title { fontSize: 1.8rem !important; marginBottom: 40px !important; }
+          /* 1. タイムラインの線をスマホでは非表示にする（スッキリさせるため） */
+          .timeline-line { display: none !important; }
+          .timeline-dot { display: none !important; }
+          
+          /* 2. 行の余白をリセットしてカードを中央寄せにする */
+          .timeline-row { 
+            justify-content: center !important; 
+            padding-left: 0 !important; 
+            margin-bottom: 40px !important; 
+          }
+          
+          /* 3. カードの幅を調整（左右に少し隙間を作る） */
+          .timeline-card { 
+            width: 90% !important; 
+            padding: 20px !important; 
+            margin: 0 auto !important;
+          }
+
+          /* 4. 全体の余白を調整 */
+          .section-container { padding: 30px 15px !important; }
+          .main-title { font-size: 1.8rem !important; margin-bottom: 40px !important; }
+          
+          /* 5. 挨拶文などのパディングもスマホ用に小さくする */
+          main { padding: 40px 10px !important; }
         }
       `}} />
 
