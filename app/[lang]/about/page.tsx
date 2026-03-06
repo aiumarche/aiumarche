@@ -21,7 +21,7 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
       title: isEn ? "Planning & Development (PD) Team" : "『企画開発部』\nPlanning & Development (PD) Team",
       text: isEn 
         ? `**The department responsible for preparing everything needed to hold the market**\n・Setting the schedule leading up to the event\n・Calculating the funds required for the event\n・Coordinating the event schedule with the university\n・Handling all publicity and market-related design\n・Communicating information about the AIU Market` 
-        : `**マルシェを行うために必要な準備を行う部署\n・開催するまでのスケジュール決め**\n・開催に必要なお金の計算\n・大学との開催調整\n・広報やマルシェに関するデザイン全般\n・AIUマルシェの情報発信`,
+        : `**マルシェを行うために必要な準備を行う部署\n・開催するまでのスケジュール決め\n・開催に必要なお金の計算**\n・大学との開催調整\n・広報やマルシェに関するデザイン全般\n・AIUマルシェの情報発信`,
       link: "https://www.instagram.com/aiumarche/p/C39k7aYxXiV/"
     },
     {
@@ -234,16 +234,14 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
                 </div>
                 
                 <div style={{ 
-      fontSize: '1rem', 
-      color: '#444', 
-      lineHeight: '1.8', 
-      marginBottom: '15px',
-      whiteSpace: 'pre-wrap', 
-      textAlign: 'left'
-    }}
-    dangerouslySetInnerHTML={{ 
-  /* 🌟 replace の末尾に 's' を追加することで、改行を含んだ太字も認識できるようになります */
-  __html: dept.text.replace(/\*\*(.*?)\*\*/gs, '<strong style="color:#2d5a27; display:block; margin-bottom:10px; font-size:1.1rem;">$1</strong>') 
+  fontSize: '1rem', 
+  color: '#444', 
+  lineHeight: '1.8', 
+  marginBottom: '15px',
+  whiteSpace: 'pre-wrap', 
+  textAlign: 'left'
+}}
+dangerouslySetInnerHTML={{   __html: dept.text.replace(/\*\*([\s\S]*?)\*\*/g, '<strong style="color:#2d5a27; display:block; margin-bottom:10px; font-size:1.1rem;">$1</strong>') 
 }} />
 
                 <div style={{ color: '#2d5a27', fontSize: '0.8rem', fontWeight: 'bold', marginTop: 'auto' }}>
