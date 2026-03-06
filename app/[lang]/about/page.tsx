@@ -18,25 +18,25 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
   const [loading, setLoading] = useState(true);
   const departments = [
     {
-      title: isEn ? "Planning & Development (PD) Team" : "企画開発部",
+      title: isEn ? "Planning & Development (PD) Team" : "『企画開発部』Planning & Development (PD) Team",
       text: isEn 
-        ? `**Department responsible for all market preparations**\n\n・Setting the schedule\n・Calculating funds\n・University coordination\n・Design & Publicity\n・Information sharing` 
-        : `**マルシェを行うために必要な準備を行う部署**\n\n・開催するまでのスケジュール決め\n・開催に必要なお金の計算\n・大学との開催調整\n・広報やデザイン全般\n・AIUマルシェの情報発信`,
+        ? `The department responsible for preparing everything needed to hold the market\n・Setting the schedule leading up to the event\n・Calculating the funds required for the event\n・Coordinating the event schedule with the university\n・Handling all publicity and market-related design\n・Communicating information about the AIU Market` 
+        : `マルシェを行うために必要な準備を行う部署\n・開催するまでのスケジュール決め\n・開催に必要なお金の計算\n・大学との開催調整\n・広報やマルシェに関するデザイン全般\n・AIUマルシェの情報発信`,
       link: "https://www.instagram.com/aiumarche/p/C39k7aYxXiV/"
     },
     {
-      title: isEn ? "AIU Co-Creation (AIU CC) Team" : "AIU共創事業部",
+      title: isEn ? "AIU Co-Creation (AIU CC) Team" : "『AIU共創事業部』AIU Co-Creation (AIU CC) Team",
       text: isEn 
-        ? `**Maximizing the appeal of AIU student exhibitors**\n\n・Recruiting exhibitors\n・Booth setup support\n・Exhibitor counseling\n・Planning kids' corners` 
-        : `**AIU生出店者の魅力を最大限に引き出す部署**\n\n・正規生、留学生からの出店募集\n・AIU出店者の出店サポート\n・AIU出店者とカウンセリング\n・子供たちのゲームや工作コーナーの企画`,
-      link: "https://www.instagram.com/aiu_marche/"
+        ? `Department Maximizing the Appeal of AIU Student Exhibitors\n・Recruiting Regular Students and International Students for Booths\n・Supporting AIU Exhibitors with Booth Setup\n・Counseling AIU Exhibitors\n・Planning and Setting Up Children's Game and Craft Corners` 
+        : `AIU生出店者の魅力を最大限に引き出す部署\n・正規生、留学生からの出店募集\n・AIU出店者の出店サポート\n・AIU出店者とカウンセリング\n・子供たちのゲームコーナーや工作コーナの企画、設営`,
+      link: "https://www.instagram.com/aiumarche/p/C4Hoahnxk-g/"
     },
     {
-      title: isEn ? "Akita Co-Creation (Akita CC) Team" : "あきた共創事業部",
+      title: isEn ? "Akita Co-Creation (Akita CC) Team" : "『あきた共創事業部』Akita Co-Creation (Akita CC) Team",
       text: isEn 
-        ? `**Connecting local vendors with AIU**\n\n・Liaising with local vendors\n・Support for showcasing local appeal\n・Interpretation support\n・Local community initiatives` 
-        : `**地域の出店者さんとAIUを結ぶ部署**\n\n・地域の出店者さんの招待、連絡\n・出店者さんの魅力発信サポート\n・出店者さんと留学生の通訳サポート\n・地元の人に喜んでもらえる企画考案`,
-      link: "https://www.instagram.com/aiu_marche/"
+        ? `The department connecting wonderful local vendors with AIU\n・Inviting and liaising with local vendors\n・Supporting local vendors to showcase their unique appeal\n・Providing interpretation to facilitate communication between vendors and international students\n・Developing initiatives that delight local residents` 
+        : `地域の素敵な出店者さんとAIUを結ぶ部署\n・地域の出店者さんの招待、連絡\n・地域の出店者さんの魅力が最大限に発揮されるようにサポート\n・通訳をし出店者さんと留学生の会話をサポート\n・地元の人に喜んでもらえる企画考案`,
+      link: "https://www.instagram.com/aiumarche/p/C4KXZ-rBJMr/"
     }
   ];
 
@@ -223,17 +223,6 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
             gap: '30px',
             padding: '0 10px'
           }}>
-            {/* 🌟 3.5 部署紹介セクション（ここを追加！） */}
-        <section style={{ marginBottom: '120px', maxWidth: '1100px', margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', color: '#2d5a27', fontSize: '1.8rem', marginBottom: '40px', fontWeight: 'bold' }}>
-            {isEn ? "Departments" : "部署紹介"}
-          </h2>
-          <div className="dept-grid" style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(3, 1fr)', 
-            gap: '30px',
-            padding: '0 10px'
-          }}>
             {departments.map((dept, i) => (
               <div 
                 key={i} 
@@ -261,8 +250,6 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
                 </div>
               </div>
             ))}
-          </div>
-        </section>
           </div>
         </section>
 
