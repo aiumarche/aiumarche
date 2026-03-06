@@ -18,24 +18,24 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
   const [loading, setLoading] = useState(true);
   const departments = [
     {
-      title: isEn ? "Planning & Development (PD) Team" : "『企画開発部』Planning & Development (PD) Team",
+      title: isEn ? "Planning & Development (PD) Team" : "企画開発部",
       text: isEn 
-        ? `The department responsible for preparing everything needed to hold the market\n・Setting the schedule leading up to the event\n・Calculating the funds required for the event\n・Coordinating the event schedule with the university\n・Handling all publicity and market-related design\n・Communicating information about the AIU Market` 
-        : `マルシェを行うために必要な準備を行う部署\n・開催するまでのスケジュール決め\n・開催に必要なお金の計算\n・大学との開催調整\n・広報やマルシェに関するデザイン全般\n・AIUマルシェの情報発信`,
+        ? `**Department responsible for all market preparations**\n\n・Setting the schedule\n・Calculating funds\n・University coordination\n・Design & Publicity\n・Information sharing` 
+        : `**マルシェを行うために必要な準備を行う部署**\n\n・開催するまでのスケジュール決め\n・開催に必要なお金の計算\n・大学との開催調整\n・広報やデザイン全般\n・AIUマルシェの情報発信`,
       link: "https://www.instagram.com/aiumarche/p/C39k7aYxXiV/"
     },
     {
-      title: isEn ? "AIU Co-Creation (AIU CC) Team" : "『AIU共創事業部』AIU Co-Creation (AIU CC) Team",
+      title: isEn ? "AIU Co-Creation (AIU CC) Team" : "AIU共創事業部",
       text: isEn 
-        ? `Department Maximizing the Appeal of AIU Student Exhibitors\n・Recruiting Regular Students and International Students for Booths\n・Supporting AIU Exhibitors with Booth Setup\n・Counseling AIU Exhibitors\n・Planning and Setting Up Children's Game and Craft Corners` 
-        : `AIU生出店者の魅力を最大限に引き出す部署\n・正規生、留学生からの出店募集\n・AIU出店者の出店サポート\n・AIU出店者とカウンセリング\n・子供たちのゲームコーナーや工作コーナの企画、設営`,
+        ? `**Maximizing the appeal of AIU student exhibitors**\n\n・Recruiting exhibitors\n・Booth setup support\n・Exhibitor counseling\n・Planning kids' corners` 
+        : `**AIU生出店者の魅力を最大限に引き出す部署**\n\n・正規生、留学生からの出店募集\n・AIU出店者の出店サポート\n・AIU出店者とカウンセリング\n・子供たちのゲームや工作コーナーの企画`,
       link: "https://www.instagram.com/aiu_marche/"
     },
     {
-      title: isEn ? "Akita Co-Creation (Akita CC) Team" : "『あきた共創事業部』Akita Co-Creation (Akita CC) Team",
+      title: isEn ? "Akita Co-Creation (Akita CC) Team" : "あきた共創事業部",
       text: isEn 
-        ? `The department connecting wonderful local vendors with AIU\n・Inviting and liaising with local vendors\n・Supporting local vendors to showcase their unique appeal\n・Providing interpretation to facilitate communication between vendors and international students\n・Developing initiatives that delight local residents` 
-        : `地域の素敵な出店者さんとAIUを結ぶ部署\n・地域の出店者さんの招待、連絡\n・地域の出店者さんの魅力が最大限に発揮されるようにサポート\n・通訳をし出店者さんと留学生の会話をサポート\n・地元の人に喜んでもらえる企画考案`,
+        ? `**Connecting local vendors with AIU**\n\n・Liaising with local vendors\n・Support for showcasing local appeal\n・Interpretation support\n・Local community initiatives` 
+        : `**地域の出店者さんとAIUを結ぶ部署**\n\n・地域の出店者さんの招待、連絡\n・出店者さんの魅力発信サポート\n・出店者さんと留学生の通訳サポート\n・地元の人に喜んでもらえる企画考案`,
       link: "https://www.instagram.com/aiu_marche/"
     }
   ];
@@ -105,30 +105,41 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
         }
 
         /* 🌟 部署カードのスタイル */
+        /* 🌟 部署紹介カードのスタイル */
         .dept-card {
-          transition: all 0.4s ease;
+          transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
           cursor: pointer;
           border: 1px solid #eee;
           background: #fff;
-          padding: 40px 25px; /* 🌟 上下左右の余白を増やして大きく見せる */
-          border-radius: 30px; /* 🌟 角丸も少し大きくするとオシャレです */
+          padding: 50px 30px;
+          border-radius: 40px;
           text-align: center;
           display: flex;
           flex-direction: column;
-          min-height: 450px; /* 🌟 カードの最低限の高さを揃えて大きくする */
-        }
-        }
-        /* 浮かび上がるアニメーション */
-        .dept-card:hover {
-          transform: translateY(-12px);
-          box-shadow: 0 20px 40px rgba(45, 90, 39, 0.15) !important;
-          border-color: #2d5a27 !important;
+          min-height: 520px; /* カードの高さをしっかり出す */
+          position: relative;
+          z-index: 1;
         }
 
-        /* スマホで1列にする設定 */
+        /* 🌟 浮かび上がるアニメーション復活 */
+        .dept-card:hover {
+          transform: translateY(-15px) !important;
+          box-shadow: 0 40px 80px rgba(45, 90, 39, 0.12) !important;
+          border-color: #2d5a27 !important; /* ホバー時は緑色に */
+        }
+
+        /* 🌟 タイトルの文字設定（赤色を廃止） */
+        .dept-title {
+          color: #2d5a27; /* マルシェの緑色 */
+          font-size: 1.5rem; /* 他のH2などとバランスの取れた大きさに */
+          font-weight: bold;
+          margin-bottom: 25px;
+          line-height: 1.4;
+        }
+
         @media (max-width: 768px) {
-          .dept-grid { grid-template-columns: 1fr !important; }
-          .dept-card { width: 90% !important; margin: 0 auto !important; }
+          .dept-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+          .dept-card { width: 95% !important; margin: 0 auto !important; min-height: auto !important; }
         }
 
         /* 📱 スマホ対応用レスポンシブスタイル（修正版） */
@@ -212,6 +223,17 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
             gap: '30px',
             padding: '0 10px'
           }}>
+            {/* 🌟 3.5 部署紹介セクション（ここを追加！） */}
+        <section style={{ marginBottom: '120px', maxWidth: '1100px', margin: '0 auto' }}>
+          <h2 style={{ textAlign: 'center', color: '#2d5a27', fontSize: '1.8rem', marginBottom: '40px', fontWeight: 'bold' }}>
+            {isEn ? "Departments" : "部署紹介"}
+          </h2>
+          <div className="dept-grid" style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(3, 1fr)', 
+            gap: '30px',
+            padding: '0 10px'
+          }}>
             {departments.map((dept, i) => (
               <div 
                 key={i} 
@@ -239,6 +261,8 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
                 </div>
               </div>
             ))}
+          </div>
+        </section>
           </div>
         </section>
 
