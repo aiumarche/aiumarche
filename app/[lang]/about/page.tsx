@@ -110,9 +110,13 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
           cursor: pointer;
           border: 1px solid #eee;
           background: #fff;
-          padding: 30px 20px;
-          borderRadius: 25px;
+          padding: 40px 25px; /* 🌟 上下左右の余白を増やして大きく見せる */
+          border-radius: 30px; /* 🌟 角丸も少し大きくするとオシャレです */
           text-align: center;
+          display: flex;
+          flex-direction: column;
+          min-height: 450px; /* 🌟 カードの最低限の高さを揃えて大きくする */
+        }
         }
         /* 浮かび上がるアニメーション */
         .dept-card:hover {
@@ -198,14 +202,14 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
   </section>
 )}
         {/* 🌟 3.5 部署紹介セクション（ここを追加！） */}
-        <section style={{ marginBottom: '100px' }}>
+        <section style={{ marginBottom: '120px', maxWidth: '1100px', margin: '0 auto' }}>
           <h2 style={{ textAlign: 'center', color: '#2d5a27', fontSize: '1.8rem', marginBottom: '40px', fontWeight: 'bold' }}>
             {isEn ? "Departments" : "部署紹介"}
           </h2>
           <div className="dept-grid" style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(3, 1fr)', 
-            gap: '20px',
+            gap: '30px',
             padding: '0 10px'
           }}>
             {departments.map((dept, i) => (
