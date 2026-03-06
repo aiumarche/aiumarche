@@ -229,26 +229,26 @@ export default function AboutPage({ params }: { params: Promise<{ lang: string }
                 onClick={() => window.open(dept.link, '_blank')}
                 className="dept-card"
               >
-                <div style={{ color: '#2d5a27', fontSize: '1.4rem', fontWeight: 'bold', marginBottom: '20px', lineHeight: '1.4' }}>
-                {dept.title}
+                <div style={{ color: '#bd5532', fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '15px', lineHeight: '1.4' }}>
+                  {dept.title}
                 </div>
                 
                 <div style={{ 
-  fontSize: '1rem', 
-  color: '#444', 
-  lineHeight: '1.8', 
-  marginBottom: '15px',
-  whiteSpace: 'pre-wrap', 
-  textAlign: 'left'
-}}
-dangerouslySetInnerHTML={{ 
-  // ここを正しく修正：アスタリスク2つを太字タグに変換
-  __html: dept.text.replace(/\*\*(.*?)\*\*/g, '<strong style="color:#2d5a27; display:block; margin-bottom:10px; font-size:1.1rem;">$1</strong>') 
+      fontSize: '1rem', 
+      color: '#444', 
+      lineHeight: '1.8', 
+      marginBottom: '15px',
+      whiteSpace: 'pre-wrap', 
+      textAlign: 'left'
+    }}
+    dangerouslySetInnerHTML={{ 
+  /* 🌟 replace の末尾に 's' を追加することで、改行を含んだ太字も認識できるようになります */
+  __html: dept.text.replace(/\*\*(.*?)\*\*/gs, '<strong style="color:#2d5a27; display:block; margin-bottom:10px; font-size:1.1rem;">$1</strong>') 
 }} />
 
-                <div style={{ color: '#2d5a27', fontSize: '0.9rem', fontWeight: 'bold', marginTop: 'auto' }}>
-  {isEn ? "View Instagram →" : "Instagramを見る →"}
-</div>
+                <div style={{ color: '#2d5a27', fontSize: '0.8rem', fontWeight: 'bold', marginTop: 'auto' }}>
+                  {isEn ? "View Instagram →" : "Instagramを見る →"}
+                </div>
               </div>
             ))}
           </div>
